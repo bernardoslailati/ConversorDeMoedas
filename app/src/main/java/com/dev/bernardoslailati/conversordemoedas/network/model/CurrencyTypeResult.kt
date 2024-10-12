@@ -1,4 +1,4 @@
-package com.dev.bernardoslailati.conversordemoedas.model
+package com.dev.bernardoslailati.conversordemoedas.network.model
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable

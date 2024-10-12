@@ -5,6 +5,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.dev.bernardoslailati.conversordemoedas.network.KtorHttpClient
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -17,6 +18,6 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
-        val x = KtorClient
+        val x = KtorHttpClient
     }
 }

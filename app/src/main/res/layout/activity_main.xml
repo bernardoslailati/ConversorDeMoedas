@@ -91,6 +91,7 @@
                     android:id="@+id/spnFromExchange"
                     android:layout_width="0dp"
                     android:padding="8dp"
+                    android:minHeight="48dp"
                     android:layout_height="wrap_content"
                     tools:listitem="@layout/item_currency_type"
                     android:layout_weight="3" />
@@ -146,6 +147,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="3"
                     android:padding="8dp"
+                    android:minHeight="48dp"
                     tools:listitem="@layout/item_currency_type" />
 
             </LinearLayout>
