@@ -13,6 +13,8 @@ import kotlinx.coroutines.runBlocking
 
 object KtorHttpClient {
 
+    private const val BASE_URL = "http://10.0.2.2:8080"
+
     private val client = HttpClient(Android) {
         install(Logging)
         install(ContentNegotiation) {
@@ -21,13 +23,11 @@ object KtorHttpClient {
     }
 
     init {
-        runBlocking {
-            val currencyResult: CurrencyTypesResult =
-                client.get("http://10.0.2.2:8080/currency_types").body()
-            currencyResult.values.forEach {
-                Log.d("CurrencyResult", it.toString())
-            }
+        val result: CurrencyTypesResult = runBlocking {
+            client.get("$BASE_URL/currency_types").body()
         }
+
+        Log.d("KtorHttpClient", result.toString())
     }
 
 }
