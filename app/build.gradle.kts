@@ -43,6 +43,8 @@ dependencies {
     implementation(libs.ktor.client.content.negotiation)
     implementation(libs.ktor.serialization.kotlinx.json)
     implementation(libs.kotlinx.serialization.json)
+    implementation(libs.lifecycle.viewmodel)
+    implementation(libs.lifecycle.runtime)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
