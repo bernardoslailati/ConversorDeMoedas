@@ -10,7 +10,6 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.lifecycleScope
 import com.dev.bernardoslailati.conversordemoedas.databinding.ActivityMainBinding
-import com.dev.bernardoslailati.conversordemoedas.ui.CurrencyTypesAdapter
 import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
@@ -37,9 +36,11 @@ class MainActivity : AppCompatActivity() {
         lifecycleScope.apply {
             launch {
                 viewModel.currencyTypes.collect { result ->
-                    result.onSuccess { currencyTypes ->
-                        binding.spnToExchange.adapter = CurrencyTypesAdapter(currencyTypes)
-                        binding.spnFromExchange.adapter = CurrencyTypesAdapter(currencyTypes)
+                    result.onSuccess {
+                        Toast.makeText(
+                            this@MainActivity, it.size.toString(),
+                            Toast.LENGTH_LONG
+                        ).show()
                     }.onFailure {
                         Toast.makeText(
                             this@MainActivity, it.message,
