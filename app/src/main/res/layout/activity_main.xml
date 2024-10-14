@@ -90,7 +90,7 @@
                         android:importantForAutofill="no"
                         android:minHeight="48dp"
                         android:inputType="number"
-                        android:text="1.000,00"
+                        android:text="@string/inital_value"
                         android:background="@android:color/transparent"/>
 
                 </LinearLayout>
@@ -154,10 +154,8 @@
                         android:id="@+id/tvToExchangeValue"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:importantForAutofill="no"
                         android:textSize="18sp"
-                        android:text="1.000,00"
-                        android:background="@android:color/transparent"/>
+                        android:text="@string/inital_value" />
 
                 </LinearLayout>
 
@@ -178,7 +176,6 @@
             </LinearLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-
 
     </androidx.cardview.widget.CardView>
 

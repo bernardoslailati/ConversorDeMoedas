@@ -131,33 +131,40 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun EditText.addCurrencyMask() {
-        this.addTextChangedListener(object : TextWatcher {
-            private var current = ""
+        addTextChangedListener(
+            object : TextWatcher {
+                private var currentText = ""
 
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+                override fun beforeTextChanged(
+                    s: CharSequence?,
+                    start: Int,
+                    count: Int,
+                    after: Int
+                ) {
+                }
 
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                }
 
-            override fun afterTextChanged(s: Editable?) {
-                if (s.toString() != current) {
-                    removeTextChangedListener(this)
+                override fun afterTextChanged(s: Editable?) {
+                    if (s.toString() != currentText) {
+                        removeTextChangedListener(this)
 
-                    val cleanString: String = s.toString().replace("[,.]".toRegex(), "")
-                    val parsed: Double = cleanString.toDoubleOrNull() ?: 0.0
+                        val cleanedString = s.toString().replace("[,.]".toRegex(), "")
+                        val currencyValue = cleanedString.toDoubleOrNull() ?: 0.0
 
-                    val formatted: String =
-                        DecimalFormat(
+                        val formattedValue = DecimalFormat(
                             "#,##0.00",
                             DecimalFormatSymbols(Locale.getDefault())
-                        ).format(parsed / 100)
-                    current = formatted
-                    setText(formatted)
-                    setSelection(formatted.length)
+                        ).format(currencyValue / 100)
+                        currentText = formattedValue
+                        setText(formattedValue)
+                        setSelection(formattedValue.length)
 
-                    addTextChangedListener(this)
+                        addTextChangedListener(this)
+                    }
                 }
             }
-        })
+        )
     }
-
 }
