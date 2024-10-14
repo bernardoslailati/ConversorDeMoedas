@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.dev.bernardoslailati.conversordemoedas.network.KtorHttpClient
 import com.dev.bernardoslailati.conversordemoedas.network.model.CurrencyType
 import com.dev.bernardoslailati.conversordemoedas.network.model.ExchangeRateResult
+import com.dev.bernardoslailati.conversordemoedas.utils.CurrencyTypeAcronym
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -20,13 +21,28 @@ class CurrencyExchangeViewModel : ViewModel() {
         MutableStateFlow<Result<ExchangeRateResult?>>(Result.success(null))
     val exchangeRate: StateFlow<Result<ExchangeRateResult?>> = _exchangeRate.asStateFlow()
 
-    init {
+    fun requireCurrencyTypes() {
         viewModelScope.launch {
             _currencyTypes.value = KtorHttpClient.getCurrencyTypes().mapCatching { result ->
                 result.values
             }
+        }
+    }
 
-            _exchangeRate.value = KtorHttpClient.getExchangeRate(from = "BRL", to = "USD")
+    fun requireExchangeRate(from: CurrencyTypeAcronym, to: CurrencyTypeAcronym) {
+        if (from == to) {
+            _exchangeRate.value = Result.success(
+                ExchangeRateResult(
+                    from = from,
+                    to = to,
+                    exchangeRate = 1.0
+                )
+            )
+            return
+        }
+
+        viewModelScope.launch {
+            _exchangeRate.value = KtorHttpClient.getExchangeRate(from = from, to = to)
         }
     }
 
