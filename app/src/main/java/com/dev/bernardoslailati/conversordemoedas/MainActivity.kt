@@ -29,6 +29,8 @@ class MainActivity : AppCompatActivity() {
 
     private val viewModel by viewModels<CurrencyExchangeViewModel>()
 
+    private var exchangeRate: Double? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -62,10 +64,16 @@ class MainActivity : AppCompatActivity() {
             }
             launch {
                 viewModel.exchangeRate.collect { result ->
-                    result.onSuccess {
-                        Log.d("MainActivity", it.toString())
+                    result.onSuccess { exchangeRateResult ->
+                        exchangeRateResult?.let {
+                            exchangeRate = it.exchangeRate
+                            binding.generateConvertedValue()
+                        }
                     }.onFailure {
-                        Log.d("MainActivity", it.message.toString())
+                        Toast.makeText(
+                            this@MainActivity, it.message,
+                            Toast.LENGTH_LONG
+                        ).show()
                     }
                 }
             }
@@ -161,10 +169,26 @@ class MainActivity : AppCompatActivity() {
                         setText(formattedValue)
                         setSelection(formattedValue.length)
 
+                        binding.generateConvertedValue()
+
                         addTextChangedListener(this)
                     }
                 }
             }
         )
+    }
+
+    private fun ActivityMainBinding.generateConvertedValue() {
+        exchangeRate?.let {
+            val cleanedString = etFromExchangeValue.text.toString().replace("[,.]".toRegex(), "")
+            val currencyValue = cleanedString.toDoubleOrNull() ?: 0.0
+
+            val formattedValue = DecimalFormat(
+                "#,##0.00",
+                DecimalFormatSymbols(Locale.getDefault())
+            ).format((currencyValue * it) / 100)
+
+            tvToExchangeValue.text = formattedValue
+        }
     }
 }
