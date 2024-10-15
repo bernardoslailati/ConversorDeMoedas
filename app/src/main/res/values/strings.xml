@@ -4,4 +4,7 @@
     <string name="digite_o_valor_e_escolha_as_moedas">Digite o valor e escolha as moedas de conversão</string>
     <string name="imagem_bandeira_pais_moeda">Imagem Bandeira País Moeda</string>
     <string name="inital_value">1.000,00</string>
+    <string name="oops_houve_uma_falha">Oops... Houve uma falha!</string>
+    <string name="nao_foi_possivel_carregar_a_lista">Não foi possível carregar a lista de tipos monetários.\nVerique a sua conexão com a internet e tente novamente.</string>
+    <string name="tentar_novamente">Tentar novamente</string>
 </resources>
